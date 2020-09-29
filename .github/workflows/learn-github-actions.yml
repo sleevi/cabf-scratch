@@ -14,6 +14,6 @@ jobs:
         with:
           name: BRs
           path: |
-            output/BR.pdf
-            output/BR.docx
-            output/BR.html
+            docs/BR.pdf
+            docs/BR.docx
+            docs/BR.html
