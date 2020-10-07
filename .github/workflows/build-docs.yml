@@ -27,12 +27,16 @@ jobs:
         uses: actions/setup-ruby@v1
         with:
           ruby-version: '2.4'
+      - name: Setup Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.8
       - name: Install dependencies
-        run: sudo apt-get install python-dev python-pip python-lxml libcairo2 libpango1.0-0 libgdk-pixbuf2.0-0 libffi-dev shared-mime-info python-virtualenv
+        run: sudo apt-get install libcairo2 libpango1.0-0 libgdk-pixbuf2.0-0 libffi-dev shared-mime-info
       - name: Setup virtualenv
         run: |
-          virtualenv --setuptools ./venv
-          . ./venv/bin/activate
+          python -m venv ./virtenv
+          source ./virtenv/bin/activate
       - name: Copy fonts
         run: |
           mkdir ~/.fonts/
@@ -41,7 +45,8 @@ jobs:
           cp -a assets/*.otf ~/.fonts/
       - name: Setup PIP
         run: |
-          pip install -U --ignore-installed pip
+          source ./virtenv/bin/activate
+          python -m pip install --upgrade pip
           pip install -U --ignore-installed setuptools
           pip install -r requirements.txt
       - name: Build via weasyprint
