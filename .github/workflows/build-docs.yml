@@ -31,6 +31,7 @@ jobs:
         run: |
           mkdir ~/.fonts/
           echo $PWD
+          ls -al
           cp -a assets/*.otf ~/.fonts/
       - name: Setup PIP
         run: |
