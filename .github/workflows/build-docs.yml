@@ -28,7 +28,7 @@ jobs:
         with:
           ruby-version: '2.4'
       - name: Install dependencies
-        run: sudo apt-get install python-dev python-pip python-lxml libcairo2 libpango1.0-0 libgdk-pixbuf2.0-0 libffi-dev shared-mime-info python-virtualenv kramdown
+        run: sudo apt-get install python-dev python-pip python-lxml libcairo2 libpango1.0-0 libgdk-pixbuf2.0-0 libffi-dev shared-mime-info python-virtualenv
       - name: Setup virtualenv
         run: |
           virtualenv --setuptools ./venv
