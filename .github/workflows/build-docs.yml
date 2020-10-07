@@ -1,0 +1,49 @@
+name: builds-docs
+on: [push, pull_request_target]
+jobs:
+  build_pandoc:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the code
+        uses: actions/checkout@v2
+      - name: Build via Pandoc
+        uses: docker://pandoc/latex:2.9.2.1
+        with:
+          entrypoint: ./docker.sh
+      - uses: actions/upload-artifact@v2
+        with:
+          name: BRs
+          path: |
+            docs/BR.pdf
+            docs/BR.docx
+            docs/BR.html
+
+  build_weasy:
+    runs-on: ubuntu-16.04
+    steps:
+      - name: Install dependencies
+        run: sudo apt-get install python-dev python-pip python-lxml libcairo2 libpango1.0-0 libgdk-pixbuf2.0-0 libffi-dev shared-mime-info python-virtualenv
+      - name: Setup virtualenv
+        run: |
+          virtualenv --setuptools ./venv
+          . ./venv/bin/activate
+          mkdir ~/.fonts/
+          cp -a assets/*.otf ~/.fonts/
+          pip install -U --ignore-installed pip
+          pip install -U --ignore-installed setuptools
+          pip install -r requirements.txt
+      - name: Build via weasyprint
+        run: make weasy
+      - uses: actions/upload-artifact@v2
+        with:
+          name: EVGs
+          path: |
+            docs/EVG.pdf
+            docs/EVG.html
+      - uses: actions/upload-artifact@v2
+        with:
+          name: NSRs
+          path: |
+            docs/NSR.pdf
+            docs/NSR.html
+
