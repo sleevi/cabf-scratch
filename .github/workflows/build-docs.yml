@@ -52,7 +52,9 @@ jobs:
       - name: Setup Bundle
         run: bundle install
       - name: Build via weasyprint
-        run: make weasy
+        run: |
+          source ./virtenv/bin/activate
+          make weasy
       - uses: actions/upload-artifact@v2
         with:
           name: EVGs
