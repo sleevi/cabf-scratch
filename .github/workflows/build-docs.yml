@@ -30,7 +30,8 @@ jobs:
       - name: Copy fonts
         run: |
           mkdir ~/.fonts/
-          cp -a ./assets/*.otf ~/.fonts/
+          echo $PWD
+          cp -a assets/*.otf ~/.fonts/
       - name: Setup PIP
         run: |
           pip install -U --ignore-installed pip
