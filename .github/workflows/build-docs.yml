@@ -27,8 +27,12 @@ jobs:
         run: |
           virtualenv --setuptools ./venv
           . ./venv/bin/activate
+      - name: Copy fonts
+        run: |
           mkdir ~/.fonts/
-          cp -a assets/*.otf ~/.fonts/
+          cp -a ./assets/*.otf ~/.fonts/
+      - name: Setup PIP
+        run: |
           pip install -U --ignore-installed pip
           pip install -U --ignore-installed setuptools
           pip install -r requirements.txt
