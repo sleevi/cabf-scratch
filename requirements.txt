@@ -1,2 +1,2 @@
-weasyprint==0.51
+weasyprint==0.44
 CairoSVG==2.4.0
