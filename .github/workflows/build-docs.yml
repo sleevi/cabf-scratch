@@ -2,10 +2,26 @@ name: builds-docs
 on: [push, pull_request_target]
 jobs:
   build_pandoc:
+    if: >
+      github.event_name == 'push' ||
+      github.event_name == 'pull_request_target' && github.event.pull_request.head.repo.full_name != github.repository
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+      - name: Checkout the PR
+        if: ${{ github.event_name == 'pull_request_target' }}
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+          ref: refs/pull/${{ github.event.pull_request.number }}/merge
+          path: pr-tmp
+      - name: Copy the Markdown from the Pull Request
+        if: ${{ github.event_name == 'pull_request_target' }}
+        run: |
+          cp pr-tmp/docs/*.md ./docs/
       - name: Build via Pandoc
         uses: docker://pandoc/latex:2.9.2.1
         with:
@@ -19,10 +35,15 @@ jobs:
             docs/BR.html
 
   build_weasy:
+    if: >
+      github.event_name == 'push' ||
+      github.event_name == 'pull_request_target' && github.event.pull_request.head.repo.full_name != github.repository
     runs-on: ubuntu-18.04
     steps:
       - name: Checkout the code
         uses: actions/checkout@v2
+        with:
+          persist-credentials: false
       - name: Setup Ruby
         uses: actions/setup-ruby@v1
         with:
@@ -51,6 +72,17 @@ jobs:
           pip install -r requirements.txt
       - name: Setup Bundle
         run: bundle install
+      - name: Checkout the PR
+        if: ${{ github.event_name == 'pull_request_target' }}
+        uses: actions/checkout@v2
+        with:
+          persist-credentials: false
+          ref: refs/pull/${{ github.event.pull_request.number }}/merge
+          path: pr-tmp
+      - name: Copy the Markdown from the Pull Request
+        if: ${{ github.event_name == 'pull_request_target' }}
+        run: |
+          cp pr-tmp/docs/*.md ./docs/
       - name: Build via weasyprint
         run: |
           source ./virtenv/bin/activate
