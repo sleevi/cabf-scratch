@@ -16,6 +16,12 @@
 Copyright 2020 CA/Browser Forum
 This work is licensed under the Creative Commons Attribution 4.0 International license.
 
+This is a test of the Emergency Merge System.
+
+This is a test, this is only a test. Had this been an actual Pull Request, you would have been notified where to approve changes.
+
+This has been a test of the Emergency Merge System.
+
 # 1. INTRODUCTION
 
 ## 1.1 Overview
