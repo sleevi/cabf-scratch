@@ -5,7 +5,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Build the BRs
-        uses: cabforum/build-guidelines-action@main
+        uses: cabforum/build-guidelines-action@wip
         with:
           markdown-file: docs/BR.md
           pdf: true
