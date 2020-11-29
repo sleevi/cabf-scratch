@@ -1,0 +1,20 @@
+on: [push]
+jobs:
+  build_pandoc:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build the BRs
+        uses: cabforum/build-guidelines-action@v1.0.0-rc1
+        with:
+          markdown-file: docs/BR.md
+          pdf: true
+          docx: true
+          lint: true
+          draft: true
+      - uses: actions/upload-artifact@v2
+        with:
+          name: BRs
+          path:
+            docs/BR.pdf
+            docs/BR.docx
