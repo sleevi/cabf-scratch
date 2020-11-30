@@ -14,9 +14,13 @@ jobs:
           draft: true
       - uses: actions/upload-artifact@v2
         with:
-          name: BRs
-          path: |
-            docs/BR.pdf
-            docs/BR.docx
+          name: BR.pdf
+          path: docs/BR.pdf
+          if-no-files-found: 'error'
+          retention-days: 1
+      - uses: actions/upload-artifact@v2
+        with:
+          name: BR.docx
+          path: docs/BR.docx
           if-no-files-found: 'error'
           retention-days: 1
