@@ -15,7 +15,7 @@ jobs:
       - uses: actions/upload-artifact@v2
         with:
           name: BRs
-          path:
+          path: |
             docs/BR.pdf
             docs/BR.docx
           if-no-files-found: 'error'
